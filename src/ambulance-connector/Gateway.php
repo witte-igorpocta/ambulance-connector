@@ -50,7 +50,7 @@ class Gateway implements IGateway
 			$this->_uri = $uri;
 		}
 
-		$this->storage = new FileStorage($this->_tempDir, new SQLiteJournal($this->_tempDir));
+		//$this->storage = new FileStorage($this->_tempDir, new SQLiteJournal($this->_tempDir));
 		$this->cache = new Cache($this->storage, 'ambulance-connector');
 	}
 
@@ -108,6 +108,11 @@ class Gateway implements IGateway
 	public function setUri(string $uri)
 	{
 		$this->_uri = $uri;
+	}
+
+	public function setStorage(IStorage $storage)
+	{
+		$this->storage = $storage;
 	}
 
 }

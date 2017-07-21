@@ -45,7 +45,8 @@ class Extension extends CompilerExtension
 				$config['token'],
 				$config['location'],
 				$config['uri'],
-			]);
+			])
+			->addSetup('setStorage', ['@cache.storage']);
 	}
 
 	/**
