@@ -1,0 +1,29 @@
+{
+    "name": "witte/ambulance_connector",
+    "version": "dev-master",
+    "type": "library",
+    "description": "Konektor pro NEMOS",
+    "homepage": "http://www.witte-automotive.cz",
+    "license": ["MIT"],
+    "authors": [
+        {
+            "name": "Igor Pocta",
+            "email": "igor.pocta@witte-automotive.cz",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ext-gd": "*",
+        "nette/bootstrap": "~2.4.0",
+        "nette/di": "~2.4.0",
+        "nette/finder": "~2.4.0",
+        "nette/http": "~2.4.0",
+        "nette/utils":"~2.4.0",
+        "guzzlehttp/guzzle":"~6.2.2"
+    },
+    "autoload": {
+        "classmap": ["src/"]
+    },
+    "minimum-stability": "dev"
+}
