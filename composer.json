@@ -1,8 +1,8 @@
 {
-    "name": "witte/ambulance_connector",
+    "name": "wittenejdek/ambulance_connector",
     "version": "dev-master",
     "type": "library",
-    "description": "Konektor pro NEMOS",
+    "description": "Konektor pro komunikaci s NEMOS",
     "homepage": "http://www.witte-automotive.cz",
     "license": ["MIT"],
     "authors": [

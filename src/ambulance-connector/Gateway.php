@@ -1,9 +1,12 @@
 <?php
 
-namespace igorpocta\AmbulanceConnector;
+namespace wittenejdek\AmbulanceConnector;
 
-use igorpocta\AmbulanceConnector\Exception\ConfigurationException;
-use igorpocta\AmbulanceConnector\Exception\ResponseException;
+use Nette\Caching\Cache;
+use Nette\Caching\IStorage;
+use Nette\Caching\Storages\FileStorage;
+use wittenejdek\AmbulanceConnector\Exception\ConfigurationException;
+use wittenejdek\AmbulanceConnector\Exception\ResponseException;
 
 class Gateway implements IGateway
 {
@@ -24,6 +27,10 @@ class Gateway implements IGateway
 
 	private $_response;
 
+	protected $storage;
+
+	protected $cache;
+
 	public function __construct($tempDir = NULL, $token = NULL, $location = NULL, $uri = NULL)
 	{
 		if ($tempDir) {
@@ -41,6 +48,9 @@ class Gateway implements IGateway
 		if ($token) {
 			$this->_uri = $uri;
 		}
+
+		$this->storage = new FileStorage($this->_tempDir);
+		$this->cache = new Cache($this->storage, 'ambulance-connector');
 	}
 
 	protected function _createSoapObject()

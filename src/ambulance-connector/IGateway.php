@@ -1,6 +1,6 @@
 <?php
 
-namespace igorpocta\AmbulanceConnector;
+namespace wittenejdek\AmbulanceConnector;
 
 interface IGateway {
 

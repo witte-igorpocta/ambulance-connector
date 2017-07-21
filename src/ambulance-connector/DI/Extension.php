@@ -1,12 +1,12 @@
 <?php
 
-namespace igorpocta\AmbulanceConnector\DI;
+namespace wittenejdek\AmbulanceConnector\DI;
 
-use igorpocta\AmbulanceConnector\Exception\Exception;
-use igorpocta\AmbulanceConnector\Gateway;
 use Nette\Configurator;
 use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
+use wittenejdek\AmbulanceConnector\Exception\Exception;
+use wittenejdek\AmbulanceConnector\Gateway;
 
 class Extension extends CompilerExtension
 {

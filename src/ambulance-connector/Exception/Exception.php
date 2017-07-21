@@ -1,6 +1,6 @@
 <?php
 
-namespace igorpocta\AmbulanceConnector\Exception;
+namespace wittenejdek\AmbulanceConnector\Exception;
 
 class Exception extends \Exception
 {

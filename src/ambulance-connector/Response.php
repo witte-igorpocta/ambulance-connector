@@ -1,8 +1,8 @@
 <?php
 
-namespace igorpocta\AmbulanceConnector;
+namespace wittenejdek\AmbulanceConnector;
 
-use igorpocta\AmbulanceConnector\Exception\InvalidArgumentException;
+use wittenejdek\AmbulanceConnector\Exception\InvalidArgumentException;
 
 class Response implements IResponse
 {
