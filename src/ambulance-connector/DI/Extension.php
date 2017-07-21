@@ -36,7 +36,7 @@ class Extension extends CompilerExtension
 				$config['uri'],
 			]);
 
-		$builder->addDefinition($this->prefix('gateway'))
+		$builder->addDefinition($this->prefix('ambulance'))
 			->setClass(Ambulance::class, [
 				$config['tempDir'],
 				$config['token'],
