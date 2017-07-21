@@ -36,7 +36,7 @@ class Extension extends CompilerExtension
 				$config['token'],
 				$config['location'],
 				$config['uri'],
-			])->;
+			]);
 
 		$builder->addDefinition($this->prefix('ambulance'))
 			->setClass(Ambulance::class, [
