@@ -5,6 +5,7 @@ namespace wittenejdek\AmbulanceConnector;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use Nette\Caching\Storages\FileStorage;
+use Nette\Caching\Storages\SQLiteJournal;
 use wittenejdek\AmbulanceConnector\Exception\ConfigurationException;
 use wittenejdek\AmbulanceConnector\Exception\ResponseException;
 
@@ -49,7 +50,7 @@ class Gateway implements IGateway
 			$this->_uri = $uri;
 		}
 
-		$this->storage = new FileStorage($this->_tempDir);
+		$this->storage = new FileStorage($this->_tempDir, new SQLiteJournal($this->_tempDir));
 		$this->cache = new Cache($this->storage, 'ambulance-connector');
 	}
 
