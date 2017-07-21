@@ -5,6 +5,7 @@ namespace wittenejdek\AmbulanceConnector\DI;
 use Nette\Configurator;
 use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
+use wittenejdek\AmbulanceConnector\Ambulance;
 use wittenejdek\AmbulanceConnector\Exception\Exception;
 use wittenejdek\AmbulanceConnector\Gateway;
 
@@ -29,6 +30,14 @@ class Extension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('gateway'))
 			->setClass(Gateway::class, [
+				$config['tempDir'],
+				$config['token'],
+				$config['location'],
+				$config['uri'],
+			]);
+
+		$builder->addDefinition($this->prefix('gateway'))
+			->setClass(Ambulance::class, [
 				$config['tempDir'],
 				$config['token'],
 				$config['location'],
