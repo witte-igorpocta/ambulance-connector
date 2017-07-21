@@ -32,7 +32,7 @@ class Gateway implements IGateway
 
 	protected $cache;
 
-	public function __construct($tempDir = NULL, $token = NULL, $location = NULL, $uri = NULL)
+	public function __construct($tempDir = NULL, $token = NULL, $location = NULL, $uri = NULL, IStorage $storage)
 	{
 		if ($tempDir) {
 			$this->_tempDir = $tempDir;
@@ -49,8 +49,7 @@ class Gateway implements IGateway
 		if ($token) {
 			$this->_uri = $uri;
 		}
-
-		//$this->storage = new FileStorage($this->_tempDir, new SQLiteJournal($this->_tempDir));
+		$this->storage = $storage;
 		$this->cache = new Cache($this->storage, 'ambulance-connector');
 	}
 

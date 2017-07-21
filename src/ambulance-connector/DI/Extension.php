@@ -2,7 +2,6 @@
 
 namespace wittenejdek\AmbulanceConnector\DI;
 
-use Nette\Caching\IStorage;
 use Nette\Configurator;
 use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
@@ -31,7 +30,6 @@ class Extension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('gateway'))
 			->setClass(Gateway::class, [
-				$storage,
 				$config['tempDir'],
 				$config['token'],
 				$config['location'],
@@ -40,13 +38,11 @@ class Extension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('ambulance'))
 			->setClass(Ambulance::class, [
-				$storage,
 				$config['tempDir'],
 				$config['token'],
 				$config['location'],
 				$config['uri'],
-			])
-			->addSetup('setStorage', ['@cache.storage']);
+			]);
 	}
 
 	/**
