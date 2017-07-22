@@ -101,8 +101,8 @@ class Ambulance extends Gateway implements IGateway
 	public function findDatesByWorkplace(Workplace $workplace, \DateTime $startDate, \DateTime $endDate)
 	{
 		// Cache
-		$datesCache = $this->cache->load('dates');
 		$hash = sha1($workplace->getId() . "." . $workplace->getControlType() . "." . $startDate->getTimestamp() . "." . $endDate->getTimestamp());
+		$datesCache = $this->cache->load($hash);
 
 		if ($datesCache === NULL) {
 			$response = $this->call("vratSeznamTerminuPracoviste", $workplace->getId(), $workplace->getControlType(), $startDate->getTimestamp(), $endDate->getTimestamp());
