@@ -5,7 +5,7 @@ namespace wittenejdek\AmbulanceConnector;
 class Examination
 {
 
-	/** @var int */
+	/** @var string */
 	private $id;
 
 	/** @var string */
@@ -13,11 +13,11 @@ class Examination
 
 	public function __construct($id, $title)
 	{
-		$this->id = (int)$id;
+		$this->id = $id;
 		$this->title = (string)$title;
 	}
 
-	public function getId(): int
+	public function getId(): string
 	{
 		return $this->id;
 	}
