@@ -75,9 +75,9 @@ class Ambulance extends Gateway implements IGateway
 				}
 				$examinations = [];
 				foreach ($workplace->typyVysetreni as $t) {
-					$examinations[] = new Examination((int)$t["id"], $t["nazev"]);
+					$examinations[] = new Examination($t["id"], $t["nazev"]);
 				}
-				$this->_output[] = new Workplace((int)$workplace->id, $workplace->nazev, $examinations);
+				$this->_output[] = new Workplace($workplace->id, $workplace->nazev, $examinations);
 			}
 			$this->cache->save('workplaces', $this->_output, [
 				Cache::EXPIRE => "1 day",
