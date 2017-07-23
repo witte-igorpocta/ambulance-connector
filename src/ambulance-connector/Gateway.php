@@ -2,7 +2,6 @@
 
 namespace wittenejdek\AmbulanceConnector;
 
-use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use wittenejdek\AmbulanceConnector\Exception\ConfigurationException;
 use wittenejdek\AmbulanceConnector\Exception\ResponseException;
@@ -26,11 +25,8 @@ class Gateway implements IGateway
 
 	private $_response;
 
-	protected $storage;
 
-	protected $cache;
-
-	public function __construct($tempDir = NULL, $token = NULL, $location = NULL, $uri = NULL, IStorage $storage)
+	public function __construct($tempDir = NULL, $token = NULL, $location = NULL, $uri = NULL)
 	{
 		if ($tempDir) {
 			$this->_tempDir = $tempDir;
@@ -47,8 +43,6 @@ class Gateway implements IGateway
 		if ($token) {
 			$this->_uri = $uri;
 		}
-		$this->storage = $storage;
-		$this->cache = new Cache($this->storage, 'ambulance-connector');
 	}
 
 	protected function _createSoapObject()
@@ -80,7 +74,7 @@ class Gateway implements IGateway
 			unset($arrayResponse["status"]);
 			unset($arrayResponse["zprava"]);
 
-			$response = new Response($this->_response->status, $this->_response->zprava, $arrayResponse);
+			$response = new Response((int)$this->_response->status, $this->_response->zprava, $arrayResponse);
 			if ($response->getStatus() !== 0) {
 				throw new ResponseException($response->getMessage());
 			} else {

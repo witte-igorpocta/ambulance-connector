@@ -13,8 +13,8 @@ class Examination
 
 	public function __construct($id, $title)
 	{
-		$this->id = $id;
-		$this->title = $title;
+		$this->id = (int)$id;
+		$this->title = (string)$title;
 	}
 
 	public function getId(): int

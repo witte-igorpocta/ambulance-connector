@@ -3,6 +3,7 @@
 namespace wittenejdek\AmbulanceConnector;
 
 use Nette\Caching\Cache;
+use Nette\Caching\IStorage;
 use wittenejdek\AmbulanceConnector\Exception\NoMedicalCheckUpDatesException;
 use wittenejdek\AmbulanceConnector\Exception\WorkplaceNotFoundException;
 
@@ -43,6 +44,19 @@ class Ambulance extends Gateway implements IGateway
 	/** @var array|callable */
 	public $afterClientCreate = [];
 
+	/** @var IStorage */
+	protected $storage;
+
+	/** @var Cache */
+	protected $cache;
+
+	public function __construct($tempDir = NULL, $token = NULL, $location = NULL, $uri = NULL, IStorage $storage)
+	{
+		parent::__construct($tempDir, $token, $location, $uri);
+		$this->storage = $storage;
+		$this->cache = new Cache($this->storage, 'ambulance-connector');
+	}
+
 	/**
 	 * @return array
 	 */
@@ -61,9 +75,9 @@ class Ambulance extends Gateway implements IGateway
 				}
 				$examinations = [];
 				foreach ($workplace->typyVysetreni as $t) {
-					$examinations[] = new Examination($t["id"], $t["nazev"]);
+					$examinations[] = new Examination((int)$t["id"], $t["nazev"]);
 				}
-				$this->_output[] = new Workplace($workplace->id, $workplace->nazev, $examinations);
+				$this->_output[] = new Workplace((int)$workplace->id, $workplace->nazev, $examinations);
 			}
 			$this->cache->save('workplaces', $this->_output, [
 				Cache::EXPIRE => "1 day",
@@ -116,9 +130,9 @@ class Ambulance extends Gateway implements IGateway
 
 					$this->_output[$dateFrom->format("Y-m-d")]["title"] = $this->_days[$dateFrom->format("N")] . ", " . $dateFrom->format("d. m. Y");
 					$this->_output[$dateFrom->format("Y-m-d")]["day"] = $this->_days[$dateFrom->format("N")];
-					$this->_output[$dateFrom->format("Y-m-d")]["calendar"] = $date->rozden_id;
+					$this->_output[$dateFrom->format("Y-m-d")]["calendar"] = (int)$date->rozden_id;
 					$this->_output[$dateFrom->format("Y-m-d")]["times"][$dateFrom->format("H-i")]["title"] = $dateFrom->format("H:i") . " - " . $dateTo->format("H:i") . " hodin";
-					$this->_output[$dateFrom->format("Y-m-d")]["times"][$dateFrom->format("H-i")]["calendar"] = $date->rozden_id;
+					$this->_output[$dateFrom->format("Y-m-d")]["times"][$dateFrom->format("H-i")]["calendar"] = (int)$date->rozden_id;
 					$this->_output[$dateFrom->format("Y-m-d")]["times"][$dateFrom->format("H-i")]["startTime"] = $dateFrom;
 					$this->_output[$dateFrom->format("Y-m-d")]["times"][$dateFrom->format("H-i")]["endTime"] = $dateTo;
 				}
