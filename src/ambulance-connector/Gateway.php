@@ -1,11 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace wittenejdek\AmbulanceConnector;
 
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
-use Nette\Caching\Storages\FileStorage;
-use Nette\Caching\Storages\SQLiteJournal;
 use wittenejdek\AmbulanceConnector\Exception\ConfigurationException;
 use wittenejdek\AmbulanceConnector\Exception\ResponseException;
 

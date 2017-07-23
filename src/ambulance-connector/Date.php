@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace wittenejdek\AmbulanceConnector;
 
@@ -18,10 +18,10 @@ class Date
 
 	public function __construct($id, $title, $examinations = [], $controlType = '001')
 	{
-		$this->id = $id;
-		$this->title = $title;
+		$this->id = (int)$id;
+		$this->title = (string)$title;
 		$this->examinations = $examinations;
-		$this->controlType = $controlType;
+		$this->controlType = (string)$controlType;
 	}
 
 	public function getId(): int
