@@ -67,21 +67,25 @@ class Gateway implements IGateway
 		$args[-1] = $this->_token;
 		ksort($args);
 
-		$this->_createSoapObject();
-		/** @var Response _response */
-		if ($this->_response = $this->_soapObject->__soapCall($function, $args)) {
-			$arrayResponse = (array)$this->_response;
-			unset($arrayResponse["status"]);
-			unset($arrayResponse["zprava"]);
+		try {
+			$this->_createSoapObject();
+			/** @var Response _response */
+			if ($this->_response = $this->_soapObject->__soapCall($function, $args)) {
+				$arrayResponse = (array)$this->_response;
+				unset($arrayResponse["status"]);
+				unset($arrayResponse["zprava"]);
 
-			$response = new Response((int)$this->_response->status, $this->_response->zprava, $arrayResponse);
-			if ($response->getStatus() !== 0) {
-				throw new ResponseException($response->getMessage());
+				$response = new Response((int)$this->_response->status, $this->_response->zprava, $arrayResponse);
+				if ($response->getStatus() !== 0) {
+					throw new ResponseException($response->getMessage());
+				} else {
+					return $response;
+				}
 			} else {
-				return $response;
+				throw new ResponseException("The response is missing. Is server active?");
 			}
-		} else {
-			throw new ResponseException("The response is missing. Is server active?");
+		} catch (\SoapFault $e) {
+			return FALSE;
 		}
 	}
 
