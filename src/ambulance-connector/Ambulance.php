@@ -41,6 +41,11 @@ class Ambulance extends Gateway implements IGateway
 	/** @var array|callable */
 	public $afterClientCreate = [];
 
+	/** @var array|callable */
+	public $nonReducesWorkplaces = [
+		256, // Nejdek
+	];
+
 	/** @var IStorage */
 	protected $storage;
 
@@ -75,7 +80,9 @@ class Ambulance extends Gateway implements IGateway
 					foreach ($workplace->typyVysetreni as $t) {
 						$examinations[] = new Examination($t["id"], $t["nazev"]);
 					}
-					$output[] = new Workplace($workplace->id, $workplace->nazev, $examinations);
+					$wp = new Workplace($workplace->id, $workplace->nazev, $examinations);
+					$wp->setReduce(!in_array($workplace->id, $this->nonReducesWorkplaces));
+					$output[] = $wp;
 				}
 				$this->cache->save('workplaces', $output, [
 					Cache::EXPIRE => "1 day",
@@ -143,8 +150,7 @@ class Ambulance extends Gateway implements IGateway
 
 				foreach ($output as $date => $exa) {
 					if (!$output[$date] instanceof Workplace) {
-						// $output[$date]["times"] = array_slice($exa["times"], 0, 3);
-						$output[$date]["times"] = $exa["times"];
+						$output[$date]["times"] = $workplace->isReduce() ? array_slice($exa["times"], 0, 3) : $exa["times"];
 					}
 				}
 				$workplace->setDates($output);

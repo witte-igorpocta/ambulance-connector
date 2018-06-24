@@ -20,6 +20,9 @@ class Workplace
 	/** @var array */
 	private $dates = [];
 
+	/** @var bool */
+	private $reduce = true;
+
 	public function __construct($id, $title = "", $examinations = [], $controlType = '001')
 	{
 		$this->id = (int)$id;
@@ -56,6 +59,16 @@ class Workplace
 	public function setDates(array $dates = [])
 	{
 		$this->dates = $dates;
+	}
+
+	public function isReduce(): bool
+	{
+		return $this->reduce;
+	}
+
+	public function setReduce(bool $reduce): void
+	{
+		$this->reduce = $reduce;
 	}
 
 }
